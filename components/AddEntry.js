@@ -37,7 +37,7 @@ class AddEntry extends Component {
     const { step } = getMetricMetaInfo(metric)
 
     this.setState(state => {
-      const count = state[metric] + step
+      const count = state[metric] - step
 
       return {
         ...state,
