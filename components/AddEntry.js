@@ -1,11 +1,12 @@
-import { Ionicons } from "@expo/vector-icons";
-import React, { Component } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { getMetricMetaInfo, timeToString } from "../utils/helpers";
-import DateHeader from "./DateHeader";
-import TextButton from "./TextButton";
-import UdaciSlider from "./UdaciSlider";
-import UdaciSteppers from "./UdaciSteppers";
+import { Ionicons } from "@expo/vector-icons"
+import React, { Component } from "react"
+import { Text, TouchableOpacity, View } from "react-native"
+import { removeEntry, submitEntry } from "../utils/api"
+import { getMetricMetaInfo, timeToString } from "../utils/helpers"
+import DateHeader from "./DateHeader"
+import TextButton from "./TextButton"
+import UdaciSlider from "./UdaciSlider"
+import UdaciSteppers from "./UdaciSteppers"
 
 const SubmitBtn = ({ onPress }) => (
   <TouchableOpacity onPress={onPress}>
@@ -70,7 +71,7 @@ class AddEntry extends Component {
 
     // navigate to home
 
-    // save to db
+    submitEntry({ key, entry })
 
     // clear local notification
   }
@@ -82,7 +83,7 @@ class AddEntry extends Component {
 
     // Route to home
 
-    // Update DB
+    removeEntry(key)
   }
 
   render() {
