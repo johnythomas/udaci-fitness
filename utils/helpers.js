@@ -1,11 +1,11 @@
-import React from "react"
-import { View } from "react-native"
 import {
   FontAwesome,
-  MaterialIcons,
-  MaterialCommunityIcons
+  MaterialCommunityIcons,
+  MaterialIcons
 } from "@expo/vector-icons"
-import { white, black } from "./colors"
+import React from "react"
+import { View } from "react-native"
+import { black } from "./colors"
 
 export function getMetricMetaInfo(metric) {
   const info = {
@@ -126,4 +126,10 @@ export function timeToString(time = Date.now()) {
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   )
   return todayUTC.toISOString().split("T")[0]
+}
+
+export function getDailyRemainderValue() {
+  return {
+    today: "👋 Don't forget to log your data today"
+  }
 }
