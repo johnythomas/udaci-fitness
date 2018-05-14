@@ -13,6 +13,7 @@ import { timeToString, getDailyRemainderValue } from "../utils/helpers"
 import { fetchCalendarResults } from "../utils/api"
 import { white } from "../utils/colors"
 import DateHeader from "./DateHeader"
+import MetricCard from "./MetricCard"
 
 const styles = StyleSheet.create({
   item: {
@@ -66,7 +67,7 @@ class History extends Component {
           </View>
         ) : (
           <TouchableOpacity onPress={() => console.log("pressed")}>
-            <Text>{JSON.stringify(metrics)}</Text>
+            <MetricCard metrics={metrics} date={formattedDate} />
           </TouchableOpacity>
         )}
       </View>
