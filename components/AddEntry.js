@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from "react-native"
 import { connect } from "react-redux"
+import { NavigationActions } from "react-navigation"
 import { addEntry } from "../actions"
 import { removeEntry, submitEntry } from "../utils/api"
 import {
@@ -117,6 +118,14 @@ class AddEntry extends Component {
     }))
   }
 
+  toHome = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.back({
+        key: "AddEntry"
+      })
+    )
+  }
+
   submit = () => {
     const key = timeToString()
     const entry = this.state
@@ -135,7 +144,7 @@ class AddEntry extends Component {
       eat: 0
     }))
 
-    // navigate to home
+    this.toHome()
 
     submitEntry({ key, entry })
 
@@ -151,7 +160,7 @@ class AddEntry extends Component {
       })
     )
 
-    // Route to home
+    this.toHome()
 
     removeEntry(key)
   }
