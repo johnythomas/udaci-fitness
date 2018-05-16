@@ -83,18 +83,17 @@ export default class Live extends Component {
           return this.setLocation()
         }
 
-        this.setState(() => ({
-          status
-        }))
+        this.setState(() => ({ status }))
       })
       .catch(error => {
-        console.warn("Error getting location permission: ", error)
+        console.warn("Error getting Location permission: ", error)
+
         this.setState(() => ({ status: "undetermined" }))
       })
   }
 
   setLocation = () => {
-    Location.watchHeadingAsync(
+    Location.watchPositionAsync(
       {
         enableHighAccuracy: true,
         timeInterval: 1,
@@ -113,7 +112,17 @@ export default class Live extends Component {
     )
   }
 
-  askPermission = () => {}
+  askPermission = () => {
+    Permissions.askAsync(Permissions.LOCATION)
+      .then(({ status }) => {
+        if (status === "granted") {
+          return this.setLocation()
+        }
+
+        this.setState(() => ({ status }))
+      })
+      .catch(error => console.warn("error asking Location permission: ", error))
+  }
 
   render() {
     const { status, coords, direction } = this.state
@@ -150,16 +159,20 @@ export default class Live extends Component {
       <View style={styles.container}>
         <View style={styles.directionContainer}>
           <Text style={styles.header}>You are heading</Text>
-          <Text style={styles.direction}>North</Text>
+          <Text style={styles.direction}>{direction}</Text>
         </View>
         <View style={styles.metricContainer}>
           <View style={styles.metric}>
             <Text style={[styles.header, { color: white }]}>Altitude</Text>
-            <Text style={[styles.subHeader, { color: white }]}>{200} Feet</Text>
+            <Text style={[styles.subHeader, { color: white }]}>
+              {Math.round(coords.altitude * 3.2808)} Feet
+            </Text>
           </View>
           <View style={styles.metric}>
             <Text style={[styles.header, { color: white }]}>Speed</Text>
-            <Text style={[styles.subHeader, { color: white }]}>{300} MPH</Text>
+            <Text style={[styles.subHeader, { color: white }]}>
+              {(coords.speed * 2.2369).toFixed(1)} MPH
+            </Text>
           </View>
         </View>
       </View>
