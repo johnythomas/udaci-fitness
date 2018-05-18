@@ -11,6 +11,7 @@ import reducers from "./reducers"
 import History from "./components/History"
 import EntryDetail from "./components/EntryDetail"
 import Live from "./components/Live"
+import { setLocalNotification } from "./utils/helpers"
 
 const store = createStore(reducers)
 
@@ -91,6 +92,10 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>

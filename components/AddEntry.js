@@ -14,7 +14,9 @@ import { removeEntry, submitEntry } from "../utils/api"
 import {
   getDailyRemainderValue,
   getMetricMetaInfo,
-  timeToString
+  timeToString,
+  clearLocalNotification,
+  setLocalNotification
 } from "../utils/helpers"
 import DateHeader from "./DateHeader"
 import TextButton from "./TextButton"
@@ -148,7 +150,7 @@ class AddEntry extends Component {
 
     submitEntry({ key, entry })
 
-    // clear local notification
+    clearLocalNotification().then(setLocalNotification)
   }
 
   reset = () => {
